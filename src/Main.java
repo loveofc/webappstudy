@@ -55,6 +55,7 @@ public class Main {
 				
 				if(!found) {
 					System.out.println("게시물이 존재하지 않습니다.");
+					continue;
 				}				
 				
 			}

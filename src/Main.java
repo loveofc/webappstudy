@@ -43,23 +43,39 @@ public class Main {
 				String [] comBits = cmd.split(" ");
 				boolean found = false;
 				int id = Integer.parseInt(comBits[2]);
-				for(Article article : lists) {
-					if(article.getId()==id) {
-						System.out.println("게시물이 존재합니다.");
-						found = true;
-						System.out.println("제목 || 내용");
-						System.out.printf("%s || %s",article.getTitle(), article.getContent());
-						break;
-					}					
+				int index =0;
+				index = found(id,lists);
+				if(index>=0) {
+					found=true;
 				}
-				
 				if(!found) {
 					System.out.println("게시물이 존재하지 않습니다.");
 					continue;
-				}				
+				}else {
+					System.out.println("제목 || 내용");
+					System.out.printf("%s || %s",lists.get(index).getTitle(), lists.get(index).getContent());
+				}
 				
-			}
-			else if(cmd.equals("exit")) {
+			}else if(cmd.startsWith("delete ")) {
+				
+				String [] comBits = cmd.split(" ");
+				boolean found = false;
+				int id = Integer.parseInt(comBits[1]);
+				int index =0;
+				index = found(id,lists);
+				if(index>=0) {
+					found=true;
+				}
+				if(!found) {
+					System.out.println("게시물이 존재하지 않습니다.");
+					continue;
+				}else {
+					lists.remove(index);
+					System.out.println("게시물이 삭제 하였습니다.");
+				}
+				
+				
+			}else if(cmd.equals("exit")) {
 				break;
 			}else {
 				System.out.println("존재하지 않는 명령어 입니다.");
@@ -67,6 +83,18 @@ public class Main {
 		}
 		System.out.println("==프로그램 끝==");		
 		sc.close();
+	}
+	
+	public static int found(int id,List<Article> lists) {
+		int index =0;
+		for(Article article : lists) {
+			if(article.getId()==id) {
+				index = lists.indexOf(article);				
+				break;
+			}					
+		}
+		
+		return index ;
 	}
 
 }

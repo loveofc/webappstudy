@@ -12,7 +12,7 @@ public class Main {
 				
 		while(true) {
 			System.out.println("명령어 입력 : ");
-			String cmd=sc.nextLine();
+			String cmd=sc.nextLine().trim();
 
 			if(cmd.length()==0) {
 				System.out.println("명령어를 입력해주세요.");
@@ -34,12 +34,31 @@ public class Main {
 					System.out.println("목록이 없습니다.");
 					continue;
 				}
-				
-				for(Article article : lists) {
-					System.out.println(article.toString());
+				System.out.println("제목  |  내용");
+				for(int i = lists.size()-1;i>=0; i--) {
+					System.out.printf("%s  |  %s\n", lists.get(i).getTitle(),lists.get(i).getContent());
 				}
 				
-			}else if(cmd.equals("exit")) {
+			}else if(cmd.startsWith("article detail ")) {
+				String [] comBits = cmd.split(" ");
+				boolean found = false;
+				int id = Integer.parseInt(comBits[2]);
+				for(Article article : lists) {
+					if(article.getId()==id) {
+						System.out.println("게시물이 존재합니다.");
+						found = true;
+						System.out.println("제목 || 내용");
+						System.out.printf("%s || %s",article.getTitle(), article.getContent());
+						break;
+					}					
+				}
+				
+				if(!found) {
+					System.out.println("게시물이 존재하지 않습니다.");
+				}				
+				
+			}
+			else if(cmd.equals("exit")) {
 				break;
 			}else {
 				System.out.println("존재하지 않는 명령어 입니다.");

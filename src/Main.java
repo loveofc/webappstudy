@@ -13,6 +13,11 @@ public class Main {
 		while(true) {
 			System.out.println("명령어 입력 : ");
 			String cmd=sc.nextLine();
+
+			if(cmd.length()==0) {
+				System.out.println("명령어를 입력해주세요.");
+				continue;
+			}
 			
 			if(cmd.equals("article write")) {
 				System.out.println("title 입력 : \r");
